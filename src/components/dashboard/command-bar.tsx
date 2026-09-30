@@ -34,7 +34,7 @@ export function CommandBar({ examples, onCommitted }: { examples: string[]; onCo
   const empty = preview && !preview.parsed.events.length && !preview.parsed.tasks.length;
 
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-sm">
+    <div className="surface shadow-sm">
       <form
         className="flex items-center gap-3 px-4 py-3"
         onSubmit={(e) => {

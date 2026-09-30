@@ -90,7 +90,7 @@ function CalendarPage() {
       {q.isLoading ? <Skeleton className="h-[600px]" /> : q.isError ? (
         <p className="text-sm">Couldn't load calendar. <Button variant="link" onClick={() => q.refetch()}>Retry</Button></p>
       ) : (
-        <div className="rounded-2xl border border-border bg-card p-2">
+        <div className="surface p-2">
           <TimeGrid days={days} items={items} hourPx={48}
             onSlot={(d) => { setSel(null); setSlot(d); setOpen(true); }}
             onItem={(it) => { if (it.kind === "event" && it.raw) { setSel(it.raw); setOpen(true); } else setInfo(it); }} />

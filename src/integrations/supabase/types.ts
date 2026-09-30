@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      attendance_subjects: {
+        Row: {
+          attended: number
+          created_at: string
+          id: string
+          subject: string
+          target: number
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attended?: number
+          created_at?: string
+          id?: string
+          subject: string
+          target?: number
+          total?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attended?: number
+          created_at?: string
+          id?: string
+          subject?: string
+          target?: number
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           category: string
@@ -53,6 +86,84 @@ export type Database = {
           is_protected?: boolean
           source?: string
           start_time?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      goal_milestones: {
+        Row: {
+          created_at: string
+          goal_id: string
+          id: string
+          position: number
+          task_id: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          goal_id: string
+          id?: string
+          position?: number
+          task_id?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          goal_id?: string
+          id?: string
+          position?: number
+          task_id?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "goal_milestones_goal_id_fkey"
+            columns: ["goal_id"]
+            isOneToOne: false
+            referencedRelation: "goals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "goal_milestones_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      goals: {
+        Row: {
+          category: string
+          created_at: string
+          estimated_hours: number
+          id: string
+          target_date: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          estimated_hours?: number
+          id?: string
+          target_date?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          estimated_hours?: number
+          id?: string
+          target_date?: string | null
           title?: string
           updated_at?: string
           user_id?: string

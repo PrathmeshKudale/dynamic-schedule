@@ -45,7 +45,7 @@ function TasksPage() {
           <Button className="mt-4" onClick={() => setOpen(true)}>Create task</Button>
         </div>
       ) : (
-        <ul className="divide-y divide-border rounded-2xl border border-border bg-card">
+        <ul className="divide-y divide-border surface">
           {tasks.map((t) => {
             const p = planned.get(t.id) ?? 0;
             return (

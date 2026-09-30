@@ -47,7 +47,7 @@ export function Welcome() {
           <button
             type="button"
             onClick={() => setStep("fresh")}
-            className="group rounded-2xl border border-border bg-card p-5 text-left transition-shadow hover:shadow-md"
+            className="group surface p-5 text-left transition-shadow hover:shadow-md"
           >
             <h2 className="mt-8 font-semibold">Set up my own routine</h2>
             <p className="mt-1 text-sm text-muted-foreground">Wake and sleep times, focus length, breaks. Add tasks after.</p>
@@ -58,7 +58,7 @@ export function Welcome() {
         </div>
       ) : (
         <form
-          className="mt-8 space-y-4 rounded-2xl border border-border bg-card p-6"
+          className="mt-8 space-y-4 surface p-6"
           onSubmit={(e) => {
             e.preventDefault();
             fresh.mutate(f);

@@ -17,10 +17,10 @@ import {
   type SeedTask,
 } from "./demo-seed";
 
-type Ctx = { supabase: any; userId: string };
-const TZ = z.number().int().min(-900).max(900);
+export type Ctx = { supabase: any; userId: string };
+export const TZ = z.number().int().min(-900).max(900);
 
-async function loadAll(ctx: Ctx, now: number) {
+export async function loadAll(ctx: Ctx, now: number) {
   const from = new Date(now - 2 * DAY).toISOString();
   const to = new Date(now + 15 * DAY).toISOString();
   const [p, t, e, b] = await Promise.all([
@@ -33,7 +33,7 @@ async function loadAll(ctx: Ctx, now: number) {
   return { profile: p.data, tasks: t.data ?? [], events: e.data ?? [], blocks: b.data ?? [] };
 }
 
-function toSched(all: Awaited<ReturnType<typeof loadAll>>) {
+export function toSched(all: Awaited<ReturnType<typeof loadAll>>) {
   const tasks: STask[] = all.tasks.map((t: any) => ({
     id: t.id,
     title: t.title,
@@ -69,7 +69,7 @@ function toSched(all: Awaited<ReturnType<typeof loadAll>>) {
   return { tasks, events, blocks, profile };
 }
 
-async function writeBlocks(ctx: Ctx, blocks: SBlock[], now: number) {
+export async function writeBlocks(ctx: Ctx, blocks: SBlock[], now: number) {
   const del = await ctx.supabase.from("schedule_blocks").delete().eq("user_id", ctx.userId).gt("end_time", new Date(now).toISOString());
   if (del.error) throw new Error(del.error.message);
   if (!blocks.length) return;
@@ -126,10 +126,10 @@ function seedRowsTasks(userId: string, ts: SeedTask[]) {
   }));
 }
 
-async function must<T extends { error: any }>(p: PromiseLike<T>) {
+export async function must(p: PromiseLike<any>): Promise<any> {
   const r = await p;
   if (r.error) throw new Error(r.error.message);
-  return r as T;
+  return r;
 }
 
 async function generateAndSave(ctx: Ctx, tz: number) {

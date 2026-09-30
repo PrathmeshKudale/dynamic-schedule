@@ -53,7 +53,7 @@ function Landing() {
             <p className="mt-4 text-sm text-muted-foreground">Plan less. Adapt faster. Live more.</p>
           </div>
 
-          <div className="animate-rise rounded-2xl border border-border bg-card p-5 shadow-sm [animation-delay:120ms]">
+          <div className="animate-rise surface p-5 shadow-sm [animation-delay:120ms]">
             <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Schedule updated</p>
             <div className="mt-4 space-y-3 text-sm">
               <DiffRow tag="Moved" title="DSA Test Prep" from="Fri 5:00 PM" to="Sat 7:45 AM" why="Conflicts with College Festival" />
