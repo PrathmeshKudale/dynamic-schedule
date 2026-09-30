@@ -6,9 +6,20 @@ import { must, type Ctx } from "../timeos.functions";
 import { DAY } from "../time";
 import { GOAL_CATEGORIES, buildRoadmap } from "./roadmap";
 
+export interface GoalView {
+  id: string;
+  title: string;
+  category: string;
+  targetDate: string | null;
+  estimatedHours: number;
+  completedHours: number;
+  progress: number;
+  milestones: { id: string; title: string; taskId: string | null; done: boolean; minutes: number; deadline: string | null }[];
+}
+
 export const listGoals = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .handler(async ({ context }): Promise<GoalView[]> => {
     const ctx = context as unknown as Ctx;
     const [g, m, t] = await Promise.all([
       must(ctx.supabase.from("goals").select("*").eq("user_id", ctx.userId).order("created_at")),

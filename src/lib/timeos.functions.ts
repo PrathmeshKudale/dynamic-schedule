@@ -126,10 +126,10 @@ function seedRowsTasks(userId: string, ts: SeedTask[]) {
   }));
 }
 
-export async function must<T extends { error: any }>(p: PromiseLike<T>) {
+export async function must(p: PromiseLike<any>): Promise<any> {
   const r = await p;
   if (r.error) throw new Error(r.error.message);
-  return r as T;
+  return r;
 }
 
 async function generateAndSave(ctx: Ctx, tz: number) {

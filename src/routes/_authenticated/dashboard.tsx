@@ -156,7 +156,7 @@ function DashboardBody({ state, optimizing, onDayChanged }: { state: TimeState; 
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6 min-w-0">
           {/* Intelligence brief */}
-          <section className="rounded-2xl border border-border bg-card p-5" aria-labelledby="brief">
+          <section className="surface p-5" aria-labelledby="brief">
             <h3 id="brief" className="flex items-center gap-2 text-sm font-semibold">
               <Brain className="h-4 w-4 text-primary" /> TimeOS Intelligence
             </h3>
@@ -212,7 +212,7 @@ function DashboardBody({ state, optimizing, onDayChanged }: { state: TimeState; 
           </div>
 
           {/* Timeline */}
-          <section className="rounded-2xl border border-border bg-card" aria-labelledby="tl">
+          <section className="surface" aria-labelledby="tl">
             <div className="flex items-center justify-between gap-2 border-b border-border px-5 py-3">
               <h3 id="tl" className="text-sm font-semibold">
                 {preview ? "Preview: proposed schedule" : "Schedule"}
@@ -258,7 +258,7 @@ function DashboardBody({ state, optimizing, onDayChanged }: { state: TimeState; 
 
         {/* Right rail */}
         <div className="space-y-6">
-          <section className="overflow-hidden rounded-2xl border border-border bg-card" aria-label="Now and next">
+          <section className="overflow-hidden surface" aria-label="Now and next">
             <div className="bg-primary p-5 text-primary-foreground">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] opacity-80">Now</p>
               {current ? (
@@ -300,7 +300,7 @@ function DashboardBody({ state, optimizing, onDayChanged }: { state: TimeState; 
 
           <FocusList tasks={focus} />
 
-          <section className="rounded-2xl border border-border bg-card p-5" aria-labelledby="wl">
+          <section className="surface p-5" aria-labelledby="wl">
             <h3 id="wl" className="text-sm font-semibold">
               Workload intelligence
             </h3>
@@ -327,7 +327,7 @@ function DashboardBody({ state, optimizing, onDayChanged }: { state: TimeState; 
             )}
           </section>
 
-          <section className="rounded-2xl border border-border bg-card p-5" aria-labelledby="hist">
+          <section className="surface p-5" aria-labelledby="hist">
             <h3 id="hist" className="flex items-center gap-2 text-sm font-semibold">
               <History className="h-4 w-4 text-muted-foreground" /> Recent adaptations
             </h3>
@@ -394,7 +394,7 @@ function Mini({ label, value, warn }: { label: string; value: string; warn?: boo
 function FocusList({ tasks }: { tasks: TimeState["tasks"] }) {
   const toggle = useAction(toggleTask);
   return (
-    <section className="rounded-2xl border border-border bg-card p-5" aria-labelledby="focus">
+    <section className="surface p-5" aria-labelledby="focus">
       <div className="flex items-center justify-between">
         <h3 id="focus" className="text-sm font-semibold">
           Today's focus
