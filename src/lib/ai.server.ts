@@ -7,7 +7,7 @@ import type { Proposal } from "./scheduler";
 
 export type ProviderName = "openai" | "demo";
 
-async function aiText(system: string, prompt: string): Promise<string> {
+export async function aiText(system: string, prompt: string): Promise<string> {
   const key = process.env["LOVABLE_API_KEY"];
   if (!key) throw new Error("AI key not configured");
   let runId: string | undefined;
