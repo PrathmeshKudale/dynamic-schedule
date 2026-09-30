@@ -8,6 +8,13 @@
       "when": 1790785120953,
       "tag": "0000_timeos_core",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790786915277,
+      "tag": "0001_goals_attendance",
+      "breakpoints": true
     }
   ]
 }
