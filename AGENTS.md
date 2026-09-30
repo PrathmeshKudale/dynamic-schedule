@@ -14,3 +14,4 @@
 - AI (src/lib/ai.server.ts) only parses text and writes explanations; always Zod-validated with deterministic demo fallback (src/lib/parse.ts).
 - Schedule changes are stored as PENDING proposals in schedule_changes and only written to schedule_blocks on explicit Apply.
 - tsconfig noUncheckedIndexedAccess/exactOptionalPropertyTypes disabled — regex/tuple-heavy parsing code made them noise.
+- Feature modules live in src/lib/<feature>/ (goals, attendance, assistant, whatif), each with its own *.functions.ts and pure helpers, reusing core helpers exported from timeos.functions.ts — keeps features independent.
