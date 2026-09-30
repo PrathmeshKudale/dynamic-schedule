@@ -75,13 +75,13 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.985 0.003 90);
+  --background: oklch(0.975 0.006 95);
   --foreground: oklch(0.2 0.01 250);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.2 0.01 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.01 250);
-  --primary: oklch(0.48 0.1 172);
+  --primary: oklch(0.52 0.12 172);
   --primary-foreground: oklch(0.99 0.005 170);
   --secondary: oklch(0.955 0.004 90);
   --secondary-foreground: oklch(0.25 0.01 250);
@@ -109,13 +109,13 @@
   --chart-3: oklch(0.66 0.12 70);
   --chart-4: oklch(0.6 0.13 15);
   --chart-5: oklch(0.52 0.1 300);
-  --sidebar: oklch(0.975 0.004 90);
-  --sidebar-foreground: oklch(0.25 0.01 250);
-  --sidebar-primary: oklch(0.48 0.1 172);
+  --sidebar: oklch(0.2 0.018 200);
+  --sidebar-foreground: oklch(0.93 0.01 180);
+  --sidebar-primary: oklch(0.78 0.13 172);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.935 0.006 90);
-  --sidebar-accent-foreground: oklch(0.2 0.01 250);
-  --sidebar-border: oklch(0.915 0.005 90);
+  --sidebar-accent: oklch(0.28 0.025 195);
+  --sidebar-accent-foreground: oklch(0.97 0.01 180);
+  --sidebar-border: oklch(0.3 0.02 200);
   --sidebar-ring: oklch(0.48 0.1 172);
 }
 
@@ -166,9 +166,26 @@
     -webkit-font-smoothing: antialiased;
   }
   .tabular { font-variant-numeric: tabular-nums; }
+  body {
+    background-image:
+      radial-gradient(1200px 500px at 110% -10%, color-mix(in oklch, var(--primary) 9%, transparent), transparent 60%),
+      radial-gradient(900px 400px at -10% 110%, color-mix(in oklch, var(--cat-learning) 7%, transparent), transparent 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3 { letter-spacing: -0.02em; }
 }
 
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @layer utilities {
   .animate-rise { animation: rise 0.35s ease-out both; }
+  .surface {
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    box-shadow: 0 1px 2px color-mix(in oklch, var(--foreground) 4%, transparent), 0 8px 24px -12px color-mix(in oklch, var(--foreground) 10%, transparent);
+  }
+  .prose-chat p { margin: 0 0 0.6em; }
+  .prose-chat ul { list-style: disc; padding-left: 1.2em; margin: 0 0 0.6em; }
+  .prose-chat ol { list-style: decimal; padding-left: 1.2em; margin: 0 0 0.6em; }
+  .prose-chat strong { font-weight: 600; }
 }

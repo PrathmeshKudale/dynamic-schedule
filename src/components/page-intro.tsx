@@ -7,3 +7,12 @@ export function PageIntro({ eyebrow, title, text }: { eyebrow: string; title: st
     </div>
   );
 }
+
+export function ErrorBox({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className="surface p-8 text-center">
+      <p className="font-medium">We couldn't load this page.</p>
+      <button className="mt-3 rounded-lg border border-border px-3 py-1.5 text-sm hover:bg-muted" onClick={onRetry}>Retry</button>
+    </div>
+  );
+}

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CheckCircle2, Circle, Loader2, Plus, Target, Trash2 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
-import { PageIntro } from "@/components/page-intro";
+import { ErrorBox, PageIntro } from "@/components/page-intro";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -138,14 +138,5 @@ function GoalDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: b
         </form>
       </DialogContent>
     </Dialog>
-  );
-}
-
-export function ErrorBox({ onRetry }: { onRetry: () => void }) {
-  return (
-    <div className="surface p-8 text-center">
-      <p className="font-medium">We couldn't load this page.</p>
-      <Button variant="outline" className="mt-3" onClick={onRetry}>Retry</Button>
-    </div>
   );
 }
