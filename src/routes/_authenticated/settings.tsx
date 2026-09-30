@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
+import { GoogleCalendarCard } from "@/components/google-calendar-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,13 +58,7 @@ function SettingsPage() {
         </Card>
 
         <Card title="Connected accounts" desc="">
-          <div className="flex items-center justify-between rounded-lg border border-border p-4">
-            <div>
-              <p className="font-medium">Google Calendar</p>
-              <p className="text-sm text-muted-foreground">Not connected. Google Calendar sync isn't available in this demo, so TimeOS uses its own calendar.</p>
-            </div>
-            <span className="rounded-full bg-secondary px-2.5 py-1 text-xs">Demo mode</span>
-          </div>
+          <GoogleCalendarCard />
           <div className="mt-3 flex items-center justify-between rounded-lg border border-border p-4">
             <div>
               <p className="font-medium">Lovable AI</p>
