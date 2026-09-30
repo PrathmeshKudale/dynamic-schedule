@@ -15,6 +15,13 @@
       "when": 1790786915277,
       "tag": "0001_goals_attendance",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790787666369,
+      "tag": "0002_app_user_connections",
+      "breakpoints": true
     }
   ]
 }
