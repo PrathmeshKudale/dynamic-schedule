@@ -20,7 +20,7 @@ export const CAT_STYLE: Record<string, { dot: string; solid: string; soft: strin
   TRAVEL: { dot: "bg-cat-travel", solid: "bg-cat-travel/15", soft: "bg-cat-travel/8", text: "text-cat-travel", border: "border-cat-travel" },
   OTHER: { dot: "bg-cat-other", solid: "bg-cat-other/15", soft: "bg-cat-other/8", text: "text-cat-other", border: "border-cat-other" },
 };
-export const catStyle = (c: string) => CAT_STYLE[c] ?? CAT_STYLE.OTHER!;
+export const catStyle = (c: string) => CAT_STYLE[c] ?? CAT_STYLE["OTHER"]!;
 
 export const REASON_LABEL: Record<string, string> = {
   deadline: "Deadline soon",
