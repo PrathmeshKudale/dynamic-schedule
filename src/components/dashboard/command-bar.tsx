@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { fmtDuration } from "@/lib/time";
 
 function fmtHM(hm: string) {
-  const [h, m] = hm.split(":").map(Number);
+  const [h = 0, m = 0] = hm.split(":").map(Number);
   return `${((h + 11) % 12) + 1}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
 }
 function fmtDate(d: string) {

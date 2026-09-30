@@ -2,17 +2,30 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { getState } from "@/lib/timeos.functions";
+import type { Database } from "@/integrations/supabase/types";
+
+type T = Database["public"]["Tables"];
 
 export const tz = () => new Date().getTimezoneOffset();
 
-export type TimeState = Awaited<ReturnType<typeof getState>>;
-export type TaskRow = TimeState["tasks"][number];
-export type EventRow = TimeState["events"][number];
-export type BlockRow = TimeState["blocks"][number];
+export type TaskRow = T["tasks"]["Row"];
+export type EventRow = T["events"]["Row"];
+export type BlockRow = T["schedule_blocks"]["Row"];
+export type ChangeRow = T["schedule_changes"]["Row"];
+export interface TimeState {
+  profile: T["profiles"]["Row"] | null;
+  tasks: TaskRow[];
+  events: EventRow[];
+  blocks: BlockRow[];
+  pending: ChangeRow | null;
+  history: ChangeRow[];
+  aiConfigured: boolean;
+  now: number;
+}
 
 export function useTimeOS() {
   const fn = useServerFn(getState);
-  return useQuery({ queryKey: ["timeos"], queryFn: () => fn({ data: { tz: tz() } }), staleTime: 10_000 });
+  return useQuery({ queryKey: ["timeos"], queryFn: () => fn({ data: { tz: tz() } }) as Promise<TimeState>, staleTime: 10_000 });
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -42,7 +55,7 @@ export interface Item {
   isProtected?: boolean;
   taskId?: string;
   done?: boolean;
-  highlight?: "moved" | "added";
+  highlight?: "moved" | "added" | undefined;
   raw?: EventRow;
 }
 

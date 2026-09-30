@@ -74,9 +74,9 @@ export function TaskDialog({ open, onOpenChange, task }: { open: boolean; onOpen
             </div>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            <Field label="Category" value={category} onChange={setCategory} options={CATEGORIES.map((c) => [c, CAT_LABEL[c]])} />
-            <Field label="Priority" value={priority} onChange={setPriority} options={PRIORITIES.map((p) => [p, p[0] + p.slice(1).toLowerCase()])} />
-            <Field label="Energy" value={energy} onChange={setEnergy} options={[["LOW", "Low"], ["MEDIUM", "Medium"], ["HIGH", "High"]]} />
+            <Field label="Category" value={category} onChange={setCategory} options={CATEGORIES.map((c): [string, string] => [c, CAT_LABEL[c] ?? c])} />
+            <Field label="Priority" value={priority} onChange={setPriority} options={PRIORITIES.map((p): [string, string] => [p, p.charAt(0) + p.slice(1).toLowerCase()])} />
+            <Field label="Energy" value={energy} onChange={setEnergy} options={[["LOW", "Low"], ["MEDIUM", "Medium"], ["HIGH", "High"]] as [string, string][]} />
           </div>
         </form>
         <DialogFooter>
@@ -89,7 +89,7 @@ export function TaskDialog({ open, onOpenChange, task }: { open: boolean; onOpen
   );
 }
 
-function Field({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[][] }) {
+function Field({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
   return (
     <div className="space-y-1.5">
       <Label>{label}</Label>

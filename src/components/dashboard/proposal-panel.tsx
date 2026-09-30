@@ -12,7 +12,7 @@ import { MiniMarkdown } from "./analyzing";
 
 type Change = NonNullable<TimeState["pending"]>;
 
-const LEVEL_W = { High: "w-full", Medium: "w-2/3", Low: "w-1/3" } as const;
+const LEVEL_W: Record<string, string> = { High: "w-full", Medium: "w-2/3", Low: "w-1/3" } as const;
 
 export function ProposalPanel({ change, preview, onPreview }: { change: Change; preview: boolean; onPreview: (v: boolean) => void }) {
   const p = change.proposal as unknown as Proposal;

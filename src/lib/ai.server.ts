@@ -70,7 +70,7 @@ function tfmt(ms: number, tz: number) {
   const d = new Date(ms - tz * 60000);
   const h = d.getUTCHours();
   const m = d.getUTCMinutes();
-  const day = WEEKDAYS[d.getUTCDay()].slice(0, 3);
+  const day = (WEEKDAYS[d.getUTCDay()] ?? "").slice(0, 3);
   return `${day} ${((h + 11) % 12) + 1}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
 }
 
