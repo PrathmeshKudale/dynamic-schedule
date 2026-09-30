@@ -107,7 +107,8 @@ export function demoParse(text: string, now: number, tz: number): Parsed {
       continue;
     }
     if (isTask) {
-      const mins = dur ? Math.round(parseFloat(dur[1]) * (/^h/i.test(dur[2]) ? 60 : 1)) : 90;
+      const d2 = dur ?? text.match(/(\d+(?:\.\d+)?)\s*(hours?|hrs?|h|minutes?|mins?)\b/i);
+      const mins = d2 ? Math.round(parseFloat(d2[1]) * (/^h/i.test(d2[2]) ? 60 : 1)) : 90;
       let title = "";
       const forM = c.match(/\bfor\s+(?:my\s+|the\s+)?([a-z0-9][a-z0-9 +#]{1,40}?)(?:\s+(?:assignment|by|due|before|tomorrow|today|on)\b|[,.]|$)/i);
       const subj = c.match(/\b([A-Z][A-Za-z0-9+#]{1,15})\s+(assignment|homework|test|exam|project|practice)/);
