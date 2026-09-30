@@ -14,7 +14,218 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          end_time: string
+          id: string
+          is_fixed: boolean
+          is_protected: boolean
+          source: string
+          start_time: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          end_time: string
+          id?: string
+          is_fixed?: boolean
+          is_protected?: boolean
+          source?: string
+          start_time: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          id?: string
+          is_fixed?: boolean
+          is_protected?: boolean
+          source?: string
+          start_time?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          break_minutes: number
+          course: string | null
+          created_at: string
+          demo_loaded: boolean
+          focus_minutes: number
+          name: string
+          sleep_time: string
+          updated_at: string
+          user_id: string
+          wake_time: string
+          year: string | null
+        }
+        Insert: {
+          break_minutes?: number
+          course?: string | null
+          created_at?: string
+          demo_loaded?: boolean
+          focus_minutes?: number
+          name?: string
+          sleep_time?: string
+          updated_at?: string
+          user_id: string
+          wake_time?: string
+          year?: string | null
+        }
+        Update: {
+          break_minutes?: number
+          course?: string | null
+          created_at?: string
+          demo_loaded?: boolean
+          focus_minutes?: number
+          name?: string
+          sleep_time?: string
+          updated_at?: string
+          user_id?: string
+          wake_time?: string
+          year?: string | null
+        }
+        Relationships: []
+      }
+      schedule_blocks: {
+        Row: {
+          created_at: string
+          end_time: string
+          id: string
+          reasons: Json
+          start_time: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          end_time: string
+          id?: string
+          reasons?: Json
+          start_time: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          end_time?: string
+          id?: string
+          reasons?: Json
+          start_time?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "schedule_blocks_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      schedule_changes: {
+        Row: {
+          applied_at: string | null
+          created_at: string
+          id: string
+          kind: string
+          narrative: string | null
+          proposal: Json
+          status: string
+          trigger_text: string | null
+          user_id: string
+        }
+        Insert: {
+          applied_at?: string | null
+          created_at?: string
+          id?: string
+          kind: string
+          narrative?: string | null
+          proposal: Json
+          status?: string
+          trigger_text?: string | null
+          user_id: string
+        }
+        Update: {
+          applied_at?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          narrative?: string | null
+          proposal?: Json
+          status?: string
+          trigger_text?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          category: string
+          created_at: string
+          deadline: string | null
+          description: string | null
+          energy_requirement: string
+          estimated_minutes: number
+          id: string
+          is_completed: boolean
+          is_flexible: boolean
+          priority: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          deadline?: string | null
+          description?: string | null
+          energy_requirement?: string
+          estimated_minutes?: number
+          id?: string
+          is_completed?: boolean
+          is_flexible?: boolean
+          priority?: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          deadline?: string | null
+          description?: string | null
+          energy_requirement?: string
+          estimated_minutes?: number
+          id?: string
+          is_completed?: boolean
+          is_flexible?: boolean
+          priority?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
