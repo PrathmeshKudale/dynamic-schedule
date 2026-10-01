@@ -7,6 +7,7 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ensureDemoUser, DEMO_EMAIL, DEMO_PASSWORD } from "@/lib/demo-auth.functions";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -40,23 +41,46 @@ function AuthPage() {
     return () => data.subscription.unsubscribe();
   }, [navigate]);
 
+  const [failed, setFailed] = useState(false);
+  const [demoBusy, setDemoBusy] = useState(false);
+
+  async function demo() {
+    setDemoBusy(true);
+    try {
+      let r = await supabase.auth.signInWithPassword({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
+      if (r.error) {
+        await ensureDemoUser();
+        r = await supabase.auth.signInWithPassword({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
+        if (r.error) throw r.error;
+      }
+      navigate({ to: "/dashboard", replace: true });
+    } catch {
+      toast.error("Demo sign-in failed. Please try again.");
+    } finally {
+      setDemoBusy(false);
+    }
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
+    const cleanEmail = email.trim().toLowerCase();
     try {
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: cleanEmail,
           password,
           options: { emailRedirectTo: `${window.location.origin}/dashboard` },
         });
         if (error) throw error;
         if (!data.session) setSent(true);
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
         if (error) throw error;
       }
+      setFailed(false);
     } catch (err) {
+      if (mode === "signin") setFailed(true);
       toast.error(err instanceof Error ? err.message : "Sign-in failed");
     } finally {
       setBusy(false);
@@ -83,7 +107,11 @@ function AuthPage() {
           </div>
         ) : (
           <>
-            <Button variant="outline" className="mt-8 w-full" onClick={google} type="button">
+            <Button className="mt-8 h-11 w-full text-base" onClick={demo} disabled={demoBusy} type="button">
+              {demoBusy ? "Opening demo…" : "Sign in as Demo User (Alex)"}
+            </Button>
+            <p className="mt-2 text-center text-xs text-muted-foreground">One click — no account needed.</p>
+            <Button variant="outline" className="mt-4 w-full" onClick={google} type="button">
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden>
                 <path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.3H12v4.4h5.9a5 5 0 0 1-2.2 3.3v2.7h3.6c2-1.9 3.2-4.7 3.2-8.1z" />
                 <path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.7c-1 .7-2.2 1-3.7 1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.8A11 11 0 0 0 12 23z" />
@@ -98,7 +126,7 @@ function AuthPage() {
             <form onSubmit={submit} className="space-y-4">
               <div className="space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+                <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value.toLowerCase().replace(/\s/g, ""))} autoComplete="email" autoCapitalize="none" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
@@ -116,12 +144,19 @@ function AuthPage() {
                 {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
               </Button>
             </form>
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              {mode === "signin" ? "New to TimeOS?" : "Already have an account?"}{" "}
+            <p
+              className={`mt-6 text-center text-sm text-muted-foreground ${
+                failed && mode === "signin" ? "rounded-lg border border-primary bg-primary/10 p-3" : ""
+              }`}
+            >
+              {failed && mode === "signin" ? "Sign-in failed. Don't have an account yet?" : mode === "signin" ? "New to TimeOS?" : "Already have an account?"}{" "}
               <button
                 type="button"
-                className="font-medium text-primary hover:underline"
-                onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+                className={`font-medium text-primary hover:underline ${failed && mode === "signin" ? "font-semibold underline" : ""}`}
+                onClick={() => {
+                  setFailed(false);
+                  setMode(mode === "signin" ? "signup" : "signin");
+                }}
               >
                 {mode === "signin" ? "Create an account" : "Sign in"}
               </button>
