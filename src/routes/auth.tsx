@@ -47,15 +47,33 @@ function AuthPage() {
   async function demo() {
     setDemoBusy(true);
     try {
+      // 1) Try signing in directly.
       let r = await supabase.auth.signInWithPassword({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
       if (r.error) {
-        await ensureDemoUser();
+        // 2) Try creating the account from the client (works when email confirm is off).
+        await supabase.auth.signUp({
+          email: DEMO_EMAIL,
+          password: DEMO_PASSWORD,
+          options: { data: { full_name: "Alex (Demo)" } },
+        });
+        // 3) Also try the server-side ensure (may fail on static hosting — ignore).
+        try {
+          await ensureDemoUser();
+        } catch (e) {
+          console.warn("ensureDemoUser unavailable (expected on static hosting):", e);
+        }
+        // 4) Retry sign-in.
         r = await supabase.auth.signInWithPassword({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
         if (r.error) throw r.error;
       }
       navigate({ to: "/dashboard", replace: true });
-    } catch {
-      toast.error("Demo sign-in failed. Please try again.");
+    } catch (err) {
+      // 5) Surface the real error, don't swallow it.
+      console.error(err);
+      toast.error((err as { message?: string })?.message || "Demo sign-in failed");
+      // 6) Prefill credentials so the user can sign in / create the account manually.
+      setEmail(DEMO_EMAIL);
+      setPassword(DEMO_PASSWORD);
     } finally {
       setDemoBusy(false);
     }
